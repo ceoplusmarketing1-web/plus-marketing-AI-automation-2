@@ -1,0 +1,17 @@
+# Example for Render.com. Add the secret values in the Render dashboard (Environment), never in this file.
+services:
+  - type: web
+    name: plus-marketing-ai
+    runtime: docker
+    plan: starter        # free plans sleep: the in-app scheduler will NOT fire reliably. Use external cron (README).
+    healthCheckPath: /api/health
+    envVars:
+      - { key: GEMINI_API_KEY, sync: false }
+      - { key: BUFFER_API_KEY, sync: false }
+      - { key: CLOUDINARY_CLOUD_NAME, sync: false }
+      - { key: CLOUDINARY_API_KEY, sync: false }
+      - { key: CLOUDINARY_API_SECRET, sync: false }
+      - { key: APP_SECRET, generateValue: true }
+      - { key: CRON_TOKEN, generateValue: true }
+      - { key: PMA_ALLOW_REMOTE_SETUP, value: "1" }   # only so you can create the admin password once; set to 0 after
+      - { key: DATABASE_URL, sync: false }              # use a managed Postgres, not the container disk
